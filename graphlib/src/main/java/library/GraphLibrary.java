@@ -36,4 +36,28 @@ public class GraphLibrary {
 
         return graph;
     }
+    
+    public int getVertexNumber(Graph<Edge> graph) {
+    	return graph.getNumberOfVertices() ;
+    }
+    
+    public int getEdgeNumber(Graph<Edge> graph) {
+    	return graph.getEdges().size();
+    }
+    
+    public int getMeanEdge(Graph<Edge> graph) {
+    	int[] edgeByVertex = new int[getVertexNumber(graph)];
+    	
+    	for (Edge edges: graph.getEdges()) {
+    		edgeByVertex[edges.getEndpointA().getNumber() - 1]++;
+    		edgeByVertex[edges.getEndpointB().getNumber() - 1]++;
+    	}
+    	int sumDegrees = 0;
+    	
+    	for (int degrees: edgeByVertex) {
+    		sumDegrees += degrees;
+    	}
+    	
+    	return sumDegrees / getVertexNumber(graph);
+    }
 }
