@@ -14,6 +14,17 @@ public class Graph <T extends Edge> {
         this.edges = new ArrayList<T>();
     }
 
+    public List<T> getNeighbour(Vertex vertex) {
+        List<T> neighbours = new ArrayList<T>();
+        for (T edge : edges) {
+            if (edge.getEndpointA().equals(vertex)) {
+                neighbours.add(edge);
+            }
+        }
+
+        return neighbours;
+    }
+
     public int getNumberOfVertices() {
         return numberOfVertices;
     }
