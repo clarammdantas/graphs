@@ -3,7 +3,9 @@ package model;
 import exception.GraphLibraryException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Graph <T extends Edge> {
     int numberOfVertices;
@@ -19,6 +21,8 @@ public class Graph <T extends Edge> {
         for (T edge : edges) {
             if (edge.getEndpointA().equals(vertex)) {
                 neighbours.add(edge.getEndpointB());
+            } else if (edge.getEndpointB().equals(vertex)) {
+                neighbours.add(edge.getEndpointA());
             }
         }
 
@@ -27,6 +31,16 @@ public class Graph <T extends Edge> {
 
     public int getNumberOfVertices() {
         return numberOfVertices;
+    }
+
+    public Set<Vertex> getVertices() {
+        Set<Vertex> vertices = new HashSet();
+        for (T edge : edges) {
+            vertices.add(edge.getEndpointA());
+            vertices.add(edge.getEndpointB());
+        }
+
+        return vertices;
     }
 
     public void setNumberOfVertices(int numberOfVertices) {

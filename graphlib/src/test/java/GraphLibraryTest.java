@@ -29,25 +29,34 @@ public class GraphLibraryTest {
         assertEquals(5, edges.size());
     }
 
+//    @Test
+//    public void getNeighboursShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
+//        GraphLibrary graphLibrary = new GraphLibrary();
+//        Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
+//        Vertex vertex1 = new Vertex(1);
+//        Vertex vertex2 = new Vertex(2);
+//        Vertex vertex3 = new Vertex(3);
+//        Vertex vertex4 = new Vertex(4);
+//        Vertex vertex5 = new Vertex(5);
+//
+//        Edge edge1 = new Edge(vertex1, vertex2);
+//        Edge edge2 = new Edge(vertex1, vertex5);
+//        List<Edge> edgesFounded = graph.getNeighbours(vertex1);
+//
+//        List<Edge> edges = new ArrayList<Edge>();
+//        edges.add(edge1);
+//        edges.add(edge2);
+//
+//        assertEquals(edges, edgesFounded);
+//    }
+
     @Test
-    public void getNeighboursShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
+    public void DFSShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
         GraphLibrary graphLibrary = new GraphLibrary();
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
-        Vertex vertex1 = new Vertex(1);
-        Vertex vertex2 = new Vertex(2);
-        Vertex vertex3 = new Vertex(3);
-        Vertex vertex4 = new Vertex(4);
-        Vertex vertex5 = new Vertex(5);
 
-        Edge edge1 = new Edge(vertex1, vertex2);
-        Edge edge2 = new Edge(vertex1, vertex5);
-        List<Edge> edgesFounded = graph.getNeighbours(vertex1);
-
-        List<Edge> edges = new ArrayList<Edge>();
-        edges.add(edge1);
-        edges.add(edge2);
-
-        assertEquals(edges, edgesFounded);
+//        System.out.println(" ##################################" + graph.getNeighbours(new Vertex(5)).size());
+        System.out.println(graphLibrary.DFS(graph, new Vertex(1)));
     }
 
     @Test
