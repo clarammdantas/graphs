@@ -41,7 +41,7 @@ public class GraphLibraryTest {
 
         Edge edge1 = new Edge(vertex1, vertex2);
         Edge edge2 = new Edge(vertex1, vertex5);
-        List<Edge> edgesFounded = graph.getNeighbour(vertex1);
+        List<Edge> edgesFounded = graph.getNeighbours(vertex1);
 
         List<Edge> edges = new ArrayList<Edge>();
         edges.add(edge1);

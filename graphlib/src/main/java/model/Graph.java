@@ -14,11 +14,11 @@ public class Graph <T extends Edge> {
         this.edges = new ArrayList<T>();
     }
 
-    public List<T> getNeighbour(Vertex vertex) {
-        List<T> neighbours = new ArrayList<T>();
+    public List<Vertex> getNeighbours(Vertex vertex) {
+        List<Vertex> neighbours = new ArrayList();
         for (T edge : edges) {
             if (edge.getEndpointA().equals(vertex)) {
-                neighbours.add(edge);
+                neighbours.add(edge.getEndpointB());
             }
         }
 
