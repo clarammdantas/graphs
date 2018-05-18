@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+/**
+ * Graph which has a Vertices and Edges connecting them
+ * @param <T> The type of the Edge
+ */
 public class Graph <T extends Edge> {
     int numberOfVertices;
     private List<T> edges;

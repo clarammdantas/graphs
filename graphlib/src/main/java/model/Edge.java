@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Bidirectional edge with two endpoints
+ */
 public class Edge {
     private Vertex endpointA;
     private Vertex endpointB;

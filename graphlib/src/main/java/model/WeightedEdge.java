@@ -1,5 +1,8 @@
-	package model;
+package model;
 
+/**
+ * Edge with a weight
+ */
 public class WeightedEdge extends Edge implements Comparable<WeightedEdge> {
     private double weight;
 

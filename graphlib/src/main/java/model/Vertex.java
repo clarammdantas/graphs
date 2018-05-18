@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Vertex node represented by an integer
+ */
 public class Vertex implements Comparable<Vertex> {
     int number;
 
