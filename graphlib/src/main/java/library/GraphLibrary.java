@@ -40,7 +40,7 @@ public class GraphLibrary {
         return graph;
     }
     
-    public String DFS(Graph<Edge> g, Vertex v) {
+    public static String DFS(Graph<Edge> g, Vertex v) {
         Set<Vertex> vertices = g.getVertices();
         Map<Integer, Boolean> visited = setVisited(vertices);
         List<List<Object>> tree = new ArrayList<List<Object>>();
@@ -62,7 +62,7 @@ public class GraphLibrary {
     	return getTree(tree);
     }
 
-    private void DFSAux(Graph<Edge> g, Map<Integer, Boolean> visited,
+    private static void DFSAux(Graph<Edge> g, Map<Integer, Boolean> visited,
                                Vertex vertex, Integer level, List<List<Object>> tree) {
 
         visited.put(vertex.getNumber(), true);
@@ -121,7 +121,6 @@ public class GraphLibrary {
     		}
     	}
 
-    	return "oi";
-    	//return DFS(mst, new Vertex(1));
+    	return DFS(mst, new Vertex(1));
     }
 }
