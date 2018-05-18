@@ -33,12 +33,12 @@ public class GraphLibraryTest {
 
     @Before
     public void setup() {
-        SIMPLE_GRAPH_PATH = new File("src/main/resources/simple-graph.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH1 = new File("src/main/resources/weighted-graph-1.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH2 = new File("src/main/resources/weighted-graph-2.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH3 = new File("src/main/resources/weighted-graph-3.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH4 = new File("src/main/resources/weighted-graph-4.txt").getAbsolutePath();
-        GRAPH_MORE_THAN_ONE_COMPONENT = new File("src/main/resources/graph-with-more-than-one-component.txt").getAbsolutePath();
+        SIMPLE_GRAPH_PATH = new File("graphlib/src/main/resources/simple-graph.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH1 = new File("graphlib/src/main/resources/weighted-graph-1.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH2 = new File("graphlib/src/main/resources/weighted-graph-2.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH3 = new File("graphlib/src/main/resources/weighted-graph-3.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH4 = new File("graphlib/src/main/resources/weighted-graph-4.txt").getAbsolutePath();
+        GRAPH_MORE_THAN_ONE_COMPONENT = new File("graphlib/src/main/resources/graph-with-more-than-one-component.txt").getAbsolutePath();
 
         graphLibrary = new GraphLibrary();
         
@@ -49,10 +49,7 @@ public class GraphLibraryTest {
     }
 
 	
-	@Before
-	public void setUp() {
-		this.graphLibrary = new GraphLibrary();
-	}
+
 	
 	private Graph<Edge> buildGraph() throws GraphLibraryException {
 		

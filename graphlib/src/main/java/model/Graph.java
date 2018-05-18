@@ -1,7 +1,6 @@
 package model;
 
 import exception.GraphLibraryException;
-import util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -140,7 +139,7 @@ private String ALWeightedRepresentation() {
 				}
 			}
 			
-		string_row += StringUtils.LS;
+		string_row += "\n";
 		representation += string_row;
 	}
 	return representation;
@@ -166,7 +165,7 @@ private String AMWeightedRepresentation() {
 		for (int column = 0; column < numberOfVertices; column++) {
 			string_row += " " + matrix[row][column];
 		} 
-		string_row += StringUtils.LS;
+		string_row += "\n";
 		representation += string_row;
 	}
 	return representation;
@@ -192,7 +191,7 @@ private String AMRepresentation() {
 		for (int column = 0; column < numberOfVertices; column++) {
 			string_row += " " + matrix[row][column];
 		} 
-		string_row += StringUtils.LS;
+		string_row += "\n";
 		representation += string_row;
 	}
 	return representation;
@@ -213,7 +212,7 @@ private String ALRepresentation() {
 			}
 
 		} 
-		string_row += StringUtils.LS;
+		string_row += "\n";
 		representation += string_row;
 	}
 	return representation;
@@ -226,7 +225,7 @@ private String makeFirstRowAMRepresentation(int numberOfVertices) {
 		int vertex = i + 1;
 		firstRow += " " + vertex;
 	}
-	firstRow += StringUtils.LS;
+	firstRow += "\n";
 	return firstRow;
 }
 
