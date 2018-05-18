@@ -126,7 +126,7 @@ public class Graph <T extends Edge> {
 }
 
 /**
- * Adcency List representation for a Weighted graph
+ * Adcency List representation for a weighted graph
  */
 private String ALWeightedRepresentation() {
 	String representation = "";
@@ -154,7 +154,7 @@ private int getOpositeVertex(Edge edge, int vertex) {
 }
 
 /**
- * Adjacency Matrix representation for a Wheighted graph
+ * Adjacency Matrix representation for a weighted graph
  */
 private String AMWeightedRepresentation() {
 	String representation = "";
@@ -180,7 +180,7 @@ private boolean isWeighted() {
 }
 
 /**
- * Adjacency Matrix representation for a non-Wheighted graph
+ * Adjacency Matrix representation for a non-weighted graph
  */
 private String AMRepresentation() {
 	String representation = "";
@@ -199,7 +199,7 @@ private String AMRepresentation() {
 }
 
 /**
- * Adjacency List representation for a non-Wheighted graph
+ * Adjacency List representation for a non-weighted graph
  */
 private String ALRepresentation() {
 	String representation = "";
@@ -231,7 +231,7 @@ private String makeFirstRowAMRepresentation(int numberOfVertices) {
 }
 
 /**
- * Create Adjacency Matrix representation of a non-Wheighted Graph
+ * Create Adjacency Matrix representation of a non-weighted Graph
  */
 private int[][] createAdjacencyMatrix() {
 	int numberOfVertices = getNumberOfVertices();
@@ -252,7 +252,7 @@ private int[][] createAdjacencyMatrix() {
 }
 
 /**
- * Create Adjacency Matrix representation of a Wheighted Graph
+ * Create Adjacency Matrix representation of a weighted Graph
  */
 private double[][] createWheightedAdjacencyMatrix() {
 	int numberOfVertices = getNumberOfVertices();
