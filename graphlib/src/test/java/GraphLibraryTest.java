@@ -39,5 +39,12 @@ public class GraphLibraryTest {
         assertEquals(5, edges.size());
     }
 
-
+    @Test
+    public void checkPrint() throws FileNotFoundException, GraphLibraryException {
+        GraphLibrary graphLibrary = new GraphLibrary();
+        Graph<WeightedEdge> graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH);
+        assertEquals("a", graphLibrary.graphRepresentation(graph, "A"));
+        System.out.println(graphLibrary.graphRepresentation(graph, "AM"));
+        System.out.println(graphLibrary.graphRepresentation(graph, "AL"));
+    }
 }

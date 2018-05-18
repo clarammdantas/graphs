@@ -51,15 +51,62 @@ public class Graph <T extends Edge> {
     }
 
 	public String representation(String type) {
-            if (type == ADJACENCY_MATRIX ) {
-                return AMRepresentation();
-            } else  {
-                return ALRepresentation();
+            boolean isWeighted = isWeighted();
+            if (isWeighted) {
+                if (type == ADJACENCY_MATRIX ) {
+                    return AMWeightedRepresentation();
+                } else  {
+                    return ALWeightedRepresentation();
+                }
+            } else {
+                if (type == ADJACENCY_MATRIX ) {
+                    return AMRepresentation();
+                } else  {
+                    return ALRepresentation();
+                }
             }
     }
     
 
-    private String AMRepresentation() {
+    private String ALWeightedRepresentation() {
+        String representatiton = "";
+        int numberOfVertices = getNumberOfVertices();
+        double[][] matrix = createWheightedAdjacencyMatrix();
+        for (int column = 0; column < numberOfVertices ; column++) {
+            String string_row = column +1 + " -";
+            for (int row = 0; row < numberOfVertices; row++) {
+                if (matrix[row][column] != 0) {
+                    string_row += " " + (row + 1) + "(" + matrix[row][column] + ")";
+                }
+
+            } 
+            string_row+= LS;
+            representatiton+= string_row;
+        }
+        return representatiton;
+	}
+
+	private String AMWeightedRepresentation() {
+        String representatiton = "";
+        int numberOfVertices = getNumberOfVertices();
+        representatiton += makeFirstRowAMRepresentation(numberOfVertices);
+        double[][] matrix = createWheightedAdjacencyMatrix();
+        for (int row = 0; row < numberOfVertices ; row++) {
+            String string_row = "" + (row + 1);
+            for (int column = 0; column < numberOfVertices; column++) {
+                string_row += " " + matrix[row][column];
+            } 
+            string_row+= LS;
+            representatiton+= string_row;
+        }
+        return representatiton;
+	}
+
+	private boolean isWeighted() {
+		return (getEdges().get(0) instanceof WeightedEdge);
+	}
+
+	private String AMRepresentation() {
         String representatiton = "";
         int numberOfVertices = getNumberOfVertices();
         representatiton += makeFirstRowAMRepresentation(numberOfVertices);
@@ -119,6 +166,24 @@ public class Graph <T extends Edge> {
             int vertexB = edge.getEndpointB().getNumber() - 1;
             matrix[vertexA][vertexB] = 1;
             matrix[vertexB][vertexA] = 1;
+        }
+        return matrix;
+    }
+
+    private double[][] createWheightedAdjacencyMatrix() {
+        int numberOfVertices = getNumberOfVertices();
+        double[][] matrix = new double[numberOfVertices][numberOfVertices];
+        for (int i = 0;i < numberOfVertices;i++) {
+            for ( int j = 0; j < numberOfVertices ; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+        List<WeightedEdge> edges =  (List<WeightedEdge>) getEdges();
+        for (WeightedEdge edge : edges) {
+            int vertexA = edge.getEndpointA().getNumber() - 1;
+            int vertexB = edge.getEndpointB().getNumber() - 1;
+            matrix[vertexA][vertexB] = edge.getWeight();
+            matrix[vertexB][vertexA] = edge.getWeight();
         }
         return matrix;
     }
