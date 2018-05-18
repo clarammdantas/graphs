@@ -121,6 +121,20 @@ public class GraphLibrary {
     }
 
 
+
+    /**
+     * Returns the string with the representation of the graph in the choosen format
+     * @param graph graph
+     * @param type The type of the graph representation(Adjacency List(AL) or Adjacenct Matrix(AM))
+     * @return String Representação do gráfico no tipo escolhido
+     */
+    
+    public String graphRepresentation(Graph graph, String type) {
+        return graph.representation(type);
+    }
+    
+
+    
     /**
      * Does a BFS on a graph g starting at vertex v. The graph can have more than one component.
      * @param g graph
