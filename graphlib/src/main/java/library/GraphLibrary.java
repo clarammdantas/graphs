@@ -42,6 +42,55 @@ public class GraphLibrary {
 
         return graph;
     }
+
+    public static String BFS(Graph<Edge> g, Vertex v) {
+        final int LEVEL_AND_PARENT = 2;
+        //each element is an array, positioned at the index correspondent to the vertex number,
+        //that stores, the vertex level and the parent of the current vertex, in that order.
+        Object[][] tree = new Object[g.getNumberOfVertices() + 1][LEVEL_AND_PARENT];
+        Set<Vertex> vertices = g.getVertices();
+        Map<Integer, Boolean> visited = setVisited(vertices);
+        BFSAux(g, v, tree, visited);
+
+        for (Vertex vertex : vertices) {
+            if (!visited.get(vertex.getNumber())) {
+                BFSAux(g, vertex, tree, visited);
+            }
+        }
+
+        return getTree(tree);
+    }
+
+    public static void BFSAux(Graph<Edge> g, Vertex v,
+                                Object[][] tree, Map<Integer, Boolean> visited) {
+        int LEVEL = 0;
+
+        Set<Vertex> vertices = g.getVertices();
+
+        LinkedList<Vertex> verticesQueue = new LinkedList();
+        visited.put(v.getNumber(), true);
+        verticesQueue.add(v);
+
+        while (verticesQueue.size() != 0) {
+            Vertex current_parent = verticesQueue.poll();
+
+            if (LEVEL == 0) {
+                tree[current_parent.getNumber()] = new Object[]{LEVEL, "-"};
+            }
+
+            List<Vertex> neighboursVertices = g.getNeighbours(current_parent);
+            for (Vertex vertex : neighboursVertices) {
+                if (!visited.get(vertex.getNumber())) {
+                    visited.put(vertex.getNumber(), true);
+                    tree[vertex.getNumber()] = new Object[]{LEVEL + 1, current_parent.getNumber()};
+
+                    verticesQueue.add(vertex);
+                }
+            }
+
+            LEVEL += 1;
+        }
+    }
     
     public static String DFS(Graph<Edge> g, Vertex v) {
         final int LEVEL_AND_PARENT = 2;
