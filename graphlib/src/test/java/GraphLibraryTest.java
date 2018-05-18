@@ -4,6 +4,8 @@ import model.Edge;
 import model.Graph;
 import model.Vertex;
 import model.WeightedEdge;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
@@ -14,49 +16,36 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class GraphLibraryTest {
-    private static final String SIMPLE_GRAPH_RELATIVE_PATH = "src/main/resources/simple-graph.txt";
-    private static final String SIMPLE_GRAPH_PATH = new File(SIMPLE_GRAPH_RELATIVE_PATH).getAbsolutePath();
+    private String SIMPLE_GRAPH_PATH;
+    private String WEIGHTED_GRAPH_PATH;
 
-    private static final String WEIGHTED_GRAPH_RELATIVE_PATH = "src/main/resources/weighted-graph.txt";
-    private static final String WEIGHTED_GRAPH_PATH = new File(WEIGHTED_GRAPH_RELATIVE_PATH).getAbsolutePath();
+    private GraphLibrary graphLibrary;
+
+    @Before
+    public void setup() {
+        SIMPLE_GRAPH_PATH = new File("src/main/resources/simple-graph.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH = new File("src/main/resources/weighted-graph.txt").getAbsolutePath();
+
+        graphLibrary = new GraphLibrary();
+    }
 
     @Test
     public void readGraphShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
-        GraphLibrary graphLibrary = new GraphLibrary();
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
         List<Edge> edges = graph.getEdges();
 
         assertEquals(5, edges.size());
     }
 
-//    @Test
-//    public void getNeighboursShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
-//        GraphLibrary graphLibrary = new GraphLibrary();
-//        Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
-//        Vertex vertex1 = new Vertex(1);
-//        Vertex vertex2 = new Vertex(2);
-//        Vertex vertex3 = new Vertex(3);
-//        Vertex vertex4 = new Vertex(4);
-//        Vertex vertex5 = new Vertex(5);
-//
-//        Edge edge1 = new Edge(vertex1, vertex2);
-//        Edge edge2 = new Edge(vertex1, vertex5);
-//        List<Edge> edgesFounded = graph.getNeighbours(vertex1);
-//
-//        List<Edge> edges = new ArrayList<Edge>();
-//        edges.add(edge1);
-//        edges.add(edge2);
-//
-//        assertEquals(edges, edgesFounded);
-//    }
-
     @Test
     public void DFSShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
-        GraphLibrary graphLibrary = new GraphLibrary();
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
 
-//        System.out.println(" ##################################" + graph.getNeighbours(new Vertex(5)).size());
-        System.out.println(graphLibrary.DFS(graph, new Vertex(1)));
+        String expectedResult = "1-0 -\n2-1 1\n3-3 5\n4-3 5\n5-2 2\n";
+        assertEquals(expectedResult, graphLibrary.DFS(graph, new Vertex(1)));
+
+        String expectedResult2 = "1-1 2\n2-0 -\n3-3 5\n4-3 5\n5-2 1\n";
+        assertEquals(expectedResult2, graphLibrary.DFS(graph, new Vertex(2)));
     }
 
     @Test

@@ -41,19 +41,22 @@ public class GraphLibrary {
     }
     
     public static String DFS(Graph<Edge> g, Vertex v) {
+        final int LEVEL_AND_PARENT = 2;
         Set<Vertex> vertices = g.getVertices();
         Map<Integer, Boolean> visited = setVisited(vertices);
-        List<List<Object>> tree = new ArrayList<List<Object>>();
+
+        //each element is an array, positioned at the index correspondent to the vertex number,
+        //that stores, the vertex level and the parent of the current vertex, in that order.
+        Object[][] tree = new Object[g.getNumberOfVertices() + 1][LEVEL_AND_PARENT];
         List<Object> firstProcessedVertex = new ArrayList<Object>();
 
-        firstProcessedVertex.add(v);
-        tree.add(firstProcessedVertex);
+        tree[v.getNumber()] = new Object[]{0, "-"}; // it doesn't have a parent because this vertex is a root.
         DFSAux(g, visited, v, 0, tree);
 
         for (Vertex vertex : vertices) {
             if (!visited.get(vertex.getNumber())) {
                 firstProcessedVertex.add(vertex);
-                tree.add(firstProcessedVertex);
+                tree[vertex.getNumber()] = new Object[]{0, "-"};
 
                 DFSAux(g, visited, vertex, 0, tree);
             }
@@ -63,19 +66,16 @@ public class GraphLibrary {
     }
 
     private static void DFSAux(Graph<Edge> g, Map<Integer, Boolean> visited,
-                               Vertex vertex, Integer level, List<List<Object>> tree) {
+                               Vertex vertex, Integer level, Object[][] tree) {
 
         visited.put(vertex.getNumber(), true);
 
         List<Vertex> neighbours = g.getNeighbours(vertex);
         for (Vertex neighbourVertex : neighbours) {
             if (!visited.get(neighbourVertex.getNumber())) {
-                List<Object> treeRow = new ArrayList<Object>();
-                treeRow.add(neighbourVertex);
-                treeRow.add(level + 1);
-                treeRow.add(vertex);
+                Object[] treeRow = new Object[]{level + 1, vertex.getNumber()};
 
-                tree.add(treeRow);
+                tree[neighbourVertex.getNumber()] = treeRow;
                 DFSAux(g, visited, neighbourVertex, level + 1, tree);
             }
         }
@@ -90,16 +90,12 @@ public class GraphLibrary {
         return visited;
     }
 
-    private static String getTree(List<List<Object>> tree) {
+    private static String getTree(Object[][] tree) {
         String toStringTree = "";
 
-        for (int i = 0; i < tree.size(); i++) {
-            if (tree.get(i).size() <= 1) {
-                toStringTree += ((Vertex) tree.get(i).get(0)).getNumber() + "-0 -" + "\n";
-            } else {
-                toStringTree += ((Vertex)tree.get(i).get(0)).getNumber() + "-" +
-                        ((Integer) tree.get(i).get(1)).toString() +
-                        " " + ((Vertex)tree.get(i).get(2)).getNumber() + "\n";
+        for (int i = 0; i < tree.length; i++) {
+            if (tree[i][0] != null && tree[i][1] != null) {
+                toStringTree += i + "-" + tree[i][0] + " " + tree[i][1] + "\n";
             }
         }
 

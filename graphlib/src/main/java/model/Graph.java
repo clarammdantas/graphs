@@ -43,6 +43,10 @@ public class Graph <T extends Edge> {
         return vertices;
     }
 
+    public int getNumberOfEdges() {
+        return edges.size();
+    }
+
     public void setNumberOfVertices(int numberOfVertices) {
         this.numberOfVertices = numberOfVertices;
     }
