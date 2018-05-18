@@ -66,5 +66,4 @@ public class GraphLibraryTest {
         assertEquals(5, edges.size());
     }
 
-
 }
