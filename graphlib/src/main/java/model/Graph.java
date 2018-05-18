@@ -109,7 +109,7 @@ public class Graph <T extends Edge> {
                     }
                 }
                 
-            string_row+= LS;
+            string_row += LS;
             representatiton+= string_row;
         }
         return representatiton;
