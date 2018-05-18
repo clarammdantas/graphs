@@ -22,6 +22,7 @@ public class GraphLibraryTest {
     private String WEIGHTED_GRAPH_PATH1;
     private String WEIGHTED_GRAPH_PATH2;
     private String WEIGHTED_GRAPH_PATH3;
+    private String WEIGHTED_GRAPH_PATH4;
 
     private GraphLibrary graphLibrary;
     
@@ -33,6 +34,7 @@ public class GraphLibraryTest {
         WEIGHTED_GRAPH_PATH1 = new File("src/main/resources/weighted-graph-1.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH2 = new File("src/main/resources/weighted-graph-2.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH3 = new File("src/main/resources/weighted-graph-3.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH4 = new File("src/main/resources/weighted-graph-4.txt").getAbsolutePath();
 
         graphLibrary = new GraphLibrary();
         
@@ -119,9 +121,15 @@ public class GraphLibraryTest {
     	}
     	
     	graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH3);
-    	
     	path = GraphLibrary.shortestPath(graph, V[1], V[3]); 
     	assertEquals(path, "1 2 5 4 3");
+    	
+    	graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH4);
+    	try {
+	    	path = GraphLibrary.shortestPath(graph, V[1], V[3]); 
+    	} catch(Exception e) {
+    		assertEquals(e.getMessage(), "Vertex is not reachable");
+    	}
     }
     
     @Test
