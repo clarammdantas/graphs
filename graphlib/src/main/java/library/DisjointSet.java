@@ -7,6 +7,8 @@ public class DisjointSet {
 	private HashMap<Integer, Integer> parent;
 	
 	public DisjointSet() {
+		size = new HashMap<Integer, Integer>();
+		parent = new HashMap<Integer, Integer>();
 	}
 	
 	private void createSet(int x) {
