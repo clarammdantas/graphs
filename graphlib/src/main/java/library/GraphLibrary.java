@@ -11,9 +11,6 @@ import model.Vertex;
 import model.WeightedEdge;
 import util.GraphReader;
 
-
-
-import java.io.FileNotFoundException;
 import java.util.*;
 
 
@@ -28,7 +25,7 @@ public class GraphLibrary {
      * @throws GraphLibraryException
      * @throws FileNotFoundException
      */
-    public Graph<Edge> readGraph(String filePath) throws GraphLibraryException, FileNotFoundException {
+    public static Graph<Edge> readGraph(String filePath) throws GraphLibraryException, FileNotFoundException {
         GraphReader graphReader = new GraphReader(filePath);
 
         int numberOfVertices = graphReader.nextInt();
@@ -49,7 +46,7 @@ public class GraphLibrary {
      * @throws GraphLibraryException
      * @throws FileNotFoundException
      */
-    public Graph<WeightedEdge> readWeightedGraph(String filePath) throws GraphLibraryException, FileNotFoundException {
+    public static Graph<WeightedEdge> readWeightedGraph(String filePath) throws GraphLibraryException, FileNotFoundException {
         GraphReader graphReader = new GraphReader(filePath);
 
         int numberOfVertices = graphReader.nextInt();
@@ -64,19 +61,19 @@ public class GraphLibrary {
     }
 
     
-    public int getVertexNumber(Graph<Edge> graph) {
+    public static int getVertexNumber(Graph<Edge> graph) {
     	return graph.getNumberOfVertices() ;
     }
     
-    public int getEdgeNumber(Graph<Edge> graph) {
+    public static int getEdgeNumber(Graph<Edge> graph) {
     	return graph.getEdges().size();
     }
     
-    public float getMeanEdge(Graph<Edge> graph) {
+    public static float getMeanEdge(Graph<Edge> graph) {
     	return (float) 2 * getEdgeNumber(graph) / getVertexNumber(graph);
     }
     
-    public boolean connected(Graph<Edge> graph) {
+    public static boolean connected(Graph<Edge> graph) {
         int numVertex = getVertexNumber(graph);
         int numVertexVisited = 2;
         Vertex firstVertex = new Vertex(1);
@@ -92,7 +89,7 @@ public class GraphLibrary {
         return isConnected;
     }
  
-    private boolean isConect(List<Edge> edges, Vertex vertex1, Vertex vertex2) {
+    private static boolean isConect(List<Edge> edges, Vertex vertex1, Vertex vertex2) {
         for (Edge edge: edges) {
             if(edge.getEndpointA().equals(vertex1) && edge.getEndpointB().equals(vertex2)) {
                 return true;
@@ -108,7 +105,7 @@ public class GraphLibrary {
         return false;
     }
    
-    private List<Edge> orderEdges(List<Edge> edges) {
+    private static List<Edge> orderEdges(List<Edge> edges) {
         List<Edge> result = new ArrayList<Edge>();
         for (Edge edge: edges) {
             if (edge.getEndpointA().getNumber() > edge.getEndpointB().getNumber()) {
@@ -129,7 +126,7 @@ public class GraphLibrary {
      * @return String Representação do gráfico no tipo escolhido
      */
     
-    public String graphRepresentation(Graph graph, String type) {
+    public static String graphRepresentation(Graph graph, String type) {
         return graph.representation(type);
     }
     
@@ -169,7 +166,7 @@ public class GraphLibrary {
      *             level and the second value indicates the parent of that vertex.
      * @param visited Map that stores the vertices already visited.
      */
-    public static void BFSAux(Graph<Edge> g, Vertex v,
+    private static void BFSAux(Graph<Edge> g, Vertex v,
                                 Object[][] tree, Map<Integer, Boolean> visited) {
         int LEVEL = 0;
 
@@ -312,6 +309,10 @@ public class GraphLibrary {
     		if(ds.mergeSets(A.getNumber(), B.getNumber())) {
     			mst.addEdge(new Edge(A, B));
     		}
+    	}
+    	
+    	if(mst.getNumberOfEdges() != g.getNumberOfVertices() - 1) {
+    		throw new GraphLibraryException("Graph is not connected");
     	}
 
     	return DFS(mst, new Vertex(1));
