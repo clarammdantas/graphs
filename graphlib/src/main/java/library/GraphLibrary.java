@@ -299,6 +299,10 @@ public class GraphLibrary {
     			mst.addEdge(new Edge(A, B));
     		}
     	}
+    	
+    	if(mst.getNumberOfEdges() != g.getNumberOfVertices() - 1) {
+    		throw new GraphLibraryException("Graph is not connected");
+    	}
 
     	return DFS(mst, new Vertex(1));
     }

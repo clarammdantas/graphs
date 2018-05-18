@@ -1,5 +1,3 @@
-import static org.junit.Assert.assertEquals;
-
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -19,12 +17,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 
 public class GraphLibraryTest {
@@ -212,7 +210,7 @@ public class GraphLibraryTest {
 	}
 
     @Test
-    public void MSTShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
+    public void MSTTest() throws FileNotFoundException, GraphLibraryException {
     	Graph<WeightedEdge> graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH2);
     	String tree = GraphLibrary.MST(graph); 
     	
@@ -232,10 +230,18 @@ public class GraphLibraryTest {
     			"3-3 5\n" + 
     			"4-3 5\n" + 
     			"5-2 2\n");
+    	
+    	graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH4);
+    	try {
+    		tree = GraphLibrary.MST(graph);
+    		fail("Exception not thrown");
+    	} catch(Exception e) {
+    		assertEquals(e.getMessage(), "Graph is not connected");
+    	}
     }
     
     @Test
-    public void ShortestPathWeighted() throws FileNotFoundException, GraphLibraryException {
+    public void ShortestPathTest() throws FileNotFoundException, GraphLibraryException {
     	Graph<WeightedEdge> graph;
     	String path;
     	
@@ -256,6 +262,7 @@ public class GraphLibraryTest {
     	graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH2);
     	try {
 	    	path = GraphLibrary.shortestPath(graph, V[1], V[3]); 
+	    	fail("Exception not thrown");
     	} catch(Exception e) {
     		assertEquals(e.getMessage(), "Graph has a negative cycle");
     	}
@@ -267,6 +274,7 @@ public class GraphLibraryTest {
     	graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH4);
     	try {
 	    	path = GraphLibrary.shortestPath(graph, V[1], V[3]); 
+	    	fail("Exception not thrown");
     	} catch(Exception e) {
     		assertEquals(e.getMessage(), "Vertex is not reachable");
     	}
@@ -290,6 +298,18 @@ public class GraphLibraryTest {
     	
     	path = GraphLibrary.shortestPath(graph, V[5], V[5]);
     	assertEquals(path, "5");
+    	
+    	
+    	graph = graphLibrary.readGraph(GRAPH_MORE_THAN_ONE_COMPONENT);
+    	path = GraphLibrary.shortestPath(graph, V[3], V[4]);
+    	assertEquals(path, "3 2 4");
+    	
+    	try {
+	    	path = GraphLibrary.shortestPath(graph, V[1], V[3]); 
+	    	fail("Exception not thrown");
+    	} catch(Exception e) {
+    		assertEquals(e.getMessage(), "Vertex is not reachable");
+    	}
     }
 }
 
