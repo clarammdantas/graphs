@@ -298,7 +298,7 @@ public class GraphLibrary {
 	}
 
     /**
-     * Calculates the shortest path between a source vertex and a target vertex in an unweighted graph.
+     * Calculates the shortest path between a source vertex and a target vertex in any graph.
      * @param g Graph
      * @param source Origin vertex
      * @param target Target vertex
