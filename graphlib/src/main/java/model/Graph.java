@@ -123,7 +123,7 @@ public class Graph <T extends Edge> {
 				return ALRepresentation();
 			}
 		}
-}
+	}
 
 /**
  * Adcency List representation for a weighted graph
