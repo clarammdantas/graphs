@@ -98,7 +98,7 @@ public class Graph <T extends Edge> {
 	
 
 	private String ALWeightedRepresentation() {
-		String representatiton = "";
+		String representation = "";
 		int numberOfVertices = getNumberOfVertices();
 		for (int vertexA = 1; vertexA <= numberOfVertices ; vertexA++) {
 			String string_row = vertexA + " -";
@@ -110,9 +110,9 @@ public class Graph <T extends Edge> {
 				}
 				
 			string_row += LS;
-			representatiton += string_row;
+			representation += string_row;
 		}
-		return representatiton;
+		return representation;
 	}
 	
 	private int getOpositeVertex(Edge edge, int vertex) {
@@ -123,9 +123,9 @@ public class Graph <T extends Edge> {
 	}
 
 	private String AMWeightedRepresentation() {
-		String representatiton = "";
+		String representation = "";
 		int numberOfVertices = getNumberOfVertices();
-		representatiton += makeFirstRowAMRepresentation(numberOfVertices);
+		representation += makeFirstRowAMRepresentation(numberOfVertices);
 		double[][] matrix = createWheightedAdjacencyMatrix();
 		for (int row = 0; row < numberOfVertices ; row++) {
 			String string_row = "" + (row + 1);
@@ -133,9 +133,9 @@ public class Graph <T extends Edge> {
 				string_row += " " + matrix[row][column];
 			} 
 			string_row += LS;
-			representatiton += string_row;
+			representation += string_row;
 		}
-		return representatiton;
+		return representation;
 	}
 
 	private boolean isWeighted() {
@@ -143,9 +143,9 @@ public class Graph <T extends Edge> {
 	}
 
 	private String AMRepresentation() {
-		String representatiton = "";
+		String representation = "";
 		int numberOfVertices = getNumberOfVertices();
-		representatiton += makeFirstRowAMRepresentation(numberOfVertices);
+		representation += makeFirstRowAMRepresentation(numberOfVertices);
 		int[][] matrix = createAdjacencyMatrix();
 		for (int row = 0; row < numberOfVertices ; row++) {
 			String string_row = "" + (row + 1);
@@ -153,13 +153,13 @@ public class Graph <T extends Edge> {
 				string_row += " " + matrix[row][column];
 			} 
 			string_row += LS;
-			representatiton += string_row;
+			representation += string_row;
 		}
-		return representatiton;
+		return representation;
 	}
 
 	private String ALRepresentation() {
-		String representatiton = "";
+		String representation = "";
 		int numberOfVertices = getNumberOfVertices();
 		int[][] matrix = createAdjacencyMatrix();
 		for (int column = 0; column < numberOfVertices ; column++) {
@@ -171,9 +171,9 @@ public class Graph <T extends Edge> {
 
 			} 
 			string_row += LS;
-			representatiton += string_row;
+			representation += string_row;
 		}
-		return representatiton;
+		return representation;
 	}
 	
 
