@@ -51,6 +51,17 @@ public class GraphLibraryTest {
     }
 
     @Test
+    public void BFSShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
+        Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
+
+        String expectedResult = "1-0 -\n2-1 1\n3-3 5\n4-3 5\n5-1 1\n";
+        assertEquals(expectedResult, graphLibrary.BFS(graph, new Vertex(1)));
+
+        String expectedResult2 = "1-1 5\n2-1 5\n3-1 5\n4-1 5\n5-0 -\n";
+        assertEquals(expectedResult2, graphLibrary.BFS(graph, new Vertex(5)));
+    }
+
+    @Test
     public void DFSShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
 
