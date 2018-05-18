@@ -1,6 +1,6 @@
 package model;
 
-public class Vertex {
+public class Vertex implements Comparable<Vertex> {
     int number;
 
     public Vertex(int number) {
@@ -25,5 +25,9 @@ public class Vertex {
             equals = number == vertex.getNumber();
         }
         return equals;
+    }
+    
+    public int compareTo(Vertex o) {
+    	return Integer.compare(getNumber(), o.getNumber());
     }
 }
