@@ -7,8 +7,12 @@ import model.WeightedEdge;
 import util.GraphReader;
 
 import java.io.FileNotFoundException;
+import java.util.List;
+
+
 
 public class GraphLibrary {
+
     public Graph<Edge> readGraph(String filePath) throws GraphLibraryException, FileNotFoundException {
         GraphReader graphReader = new GraphReader(filePath);
 
@@ -36,4 +40,11 @@ public class GraphLibrary {
 
         return graph;
     }
+
+    
+    public String graphRepresentation(Graph graph, String type) {
+            return graph.representation(type);
+    }
+    
+
 }

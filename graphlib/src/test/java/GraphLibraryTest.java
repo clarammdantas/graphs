@@ -1,18 +1,25 @@
+
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import org.junit.Test;
+
 import exception.GraphLibraryException;
 import library.GraphLibrary;
 import model.Edge;
 import model.Graph;
 import model.WeightedEdge;
-import org.junit.Test;
-
-import java.io.FileNotFoundException;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class GraphLibraryTest {
-    private static final String SIMPLE_GRAPH_PATH = "/home/gustavo/Documents/workspace/graphs/graphlib/src/main/resources/simple-graph.txt";
-    private static final String WEIGHTED_GRAPH_PATH = "/home/gustavo/Documents/workspace/graphs/graphlib/src/main/resources/weighted-graph.txt";
+    private static final String SIMPLE_GRAPH_RELATIVE_PATH = "graphlib/src/main/resources/simple-graph.txt";
+    private static final String SIMPLE_GRAPH_PATH = new File(SIMPLE_GRAPH_RELATIVE_PATH).getAbsolutePath();
+
+    private static final String WEIGHTED_GRAPH_RELATIVE_PATH = "graphlib/src/main/resources/weighted-graph.txt";
+    private static final String WEIGHTED_GRAPH_PATH = new File(WEIGHTED_GRAPH_RELATIVE_PATH).getAbsolutePath();
 
     @Test
     public void readGraphShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
@@ -31,4 +38,6 @@ public class GraphLibraryTest {
 
         assertEquals(5, edges.size());
     }
+
+
 }
