@@ -45,7 +45,7 @@ public class GraphLibrary {
 
     
     public String graphRepresentation(Graph graph, String type) {
-            return graph.representation(type);
+        return graph.representation(type);
     }
     
 
