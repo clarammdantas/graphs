@@ -9,6 +9,10 @@ import java.util.TreeSet;
 
 import enumeration.Representation;
 
+/**
+ * Graph which has a Vertices and Edges connecting them
+ * @param <T> The type of the Edge
+ */
 public class Graph <T extends Edge> {
     int numberOfVertices;
     private List<T> edges;
