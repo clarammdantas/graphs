@@ -6,6 +6,7 @@ import model.WeightedEdge;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class GraphReader {
@@ -13,6 +14,7 @@ public class GraphReader {
 
     public GraphReader(String filePath) throws FileNotFoundException {
         this.scanner = new Scanner(new File(filePath));
+        this.scanner.useLocale(Locale.ENGLISH);
     }
 
     public boolean hasNextLine() {
