@@ -57,8 +57,6 @@ public class GraphLibraryTest {
         	V[i] = new Vertex(i);
         }
     }
-
-    private GraphLibrary graphLibrary;
 	
 	@Before
 	public void setUp() {
@@ -212,8 +210,6 @@ public class GraphLibraryTest {
 	     	   
 	     Assert.assertFalse(graphLibrary.connected(graph));
 	}
-
-}
 
     @Test
     public void MSTShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
