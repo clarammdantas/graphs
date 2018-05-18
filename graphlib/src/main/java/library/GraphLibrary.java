@@ -60,44 +60,71 @@ public class GraphLibrary {
         return graph;
     }
 
-    
+    /**
+     * Returns number of vertices in graph
+     * @param graph
+     * @return Number of vertices
+     */
     public static int getVertexNumber(Graph<Edge> graph) {
     	return graph.getNumberOfVertices() ;
     }
     
+    /**
+     * Returns number of edges in graph
+     * @param graph
+     * @return Number of edges
+     */
     public static int getEdgeNumber(Graph<Edge> graph) {
     	return graph.getEdges().size();
     }
     
+    /**
+     * Returns the mean degree of vertices
+     * @param graph
+     * @return The mean degree
+     */
     public static float getMeanEdge(Graph<Edge> graph) {
     	return (float) 2 * getEdgeNumber(graph) / getVertexNumber(graph);
     }
     
+    /**
+     * Tests if the graph is connected
+     * @param graph
+     * @return True if graph is connected and False otherwise
+     */
     public static boolean connected(Graph<Edge> graph) {
         int numVertex = getVertexNumber(graph);
         int numVertexVisited = 2;
         Vertex firstVertex = new Vertex(1);
         boolean isConnected = true;
+        List<Edge> orderedEdges = orderEdges(graph.getEdges());
        
         if (numVertex > 1) {
             while ((numVertexVisited <= numVertex) && isConnected) {
                 Vertex actualVertex = new Vertex(numVertexVisited);
-                isConnected = isConect(orderEdges(graph.getEdges()), firstVertex, actualVertex);
+                isConnected = isConnect(orderedEdges, firstVertex, actualVertex);
                 numVertexVisited++;
             }
         }
         return isConnected;
     }
- 
-    private static boolean isConect(List<Edge> edges, Vertex vertex1, Vertex vertex2) {
+    
+    /**
+     * Checks if one vertex can be reached from another
+     * @param edges List of edges of the graph
+     * @param vertex1 The starting vertex
+     * @param vertex2 The final vertex
+     * @return True if vertex2 can be reached from vertex1 and False otherwise
+     */
+    private static boolean isConnect(List<Edge> edges, Vertex vertex1, Vertex vertex2) {
         for (Edge edge: edges) {
             if(edge.getEndpointA().equals(vertex1) && edge.getEndpointB().equals(vertex2)) {
                 return true;
             }else if (edge.getEndpointA().equals(vertex1)) {
                 if (vertex2.getNumber() > edge.getEndpointB().getNumber()) {
-                    return isConect(edges, edge.getEndpointB(), vertex2);                  
+                    return isConnect(edges, edge.getEndpointB(), vertex2);                  
                 } else {
-                    return isConect(edges, vertex2, edge.getEndpointB());
+                    return isConnect(edges, vertex2, edge.getEndpointB());
                    
                 }
             }          
@@ -105,6 +132,11 @@ public class GraphLibrary {
         return false;
     }
    
+    /**
+     * Returns a list of edges where the endpointA is lower than endpointB for all edges
+     * @param edges List of edges of the graph
+     * @return The new ordered list of edges
+     */
     private static List<Edge> orderEdges(List<Edge> edges) {
         List<Edge> result = new ArrayList<Edge>();
         for (Edge edge: edges) {
