@@ -23,6 +23,7 @@ public class GraphLibraryTest {
     private String WEIGHTED_GRAPH_PATH2;
     private String WEIGHTED_GRAPH_PATH3;
     private String WEIGHTED_GRAPH_PATH4;
+    private String GRAPH_MORE_THAN_ONE_COMPONENT;
 
     private GraphLibrary graphLibrary;
     
@@ -35,6 +36,7 @@ public class GraphLibraryTest {
         WEIGHTED_GRAPH_PATH2 = new File("src/main/resources/weighted-graph-2.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH3 = new File("src/main/resources/weighted-graph-3.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH4 = new File("src/main/resources/weighted-graph-4.txt").getAbsolutePath();
+        GRAPH_MORE_THAN_ONE_COMPONENT = new File("src/main/resources/graph-with-more-than-one-component.txt").getAbsolutePath();
 
         graphLibrary = new GraphLibrary();
         
@@ -67,11 +69,43 @@ public class GraphLibraryTest {
     public void DFSShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
 
-        String expectedResult = "1-0 -\n2-1 1\n3-3 5\n4-3 5\n5-2 2\n";
+        String expectedResult = "1-0 -\n" +
+                "2-1 1\n" +
+                "3-3 5\n" +
+                "4-3 5\n" +
+                "5-2 2\n";
         assertEquals(expectedResult, GraphLibrary.DFS(graph, new Vertex(1)));
 
-        String expectedResult2 = "1-1 2\n2-0 -\n3-3 5\n4-3 5\n5-2 1\n";
+        String expectedResult2 = "1-1 2\n" +
+                "2-0 -\n" +
+                "3-3 5\n" +
+                "4-3 5\n" +
+                "5-2 1\n";
         assertEquals(expectedResult2, GraphLibrary.DFS(graph, new Vertex(2)));
+    }
+
+    @Test
+    public void DFSShouldWorkWithUnconnectedGraph() throws FileNotFoundException, GraphLibraryException {
+        Graph<Edge> graph = graphLibrary.readGraph(GRAPH_MORE_THAN_ONE_COMPONENT);
+
+        String expectedResult = "1-0 -\n" +
+                "2-0 -\n" +
+                "3-1 2\n" +
+                "4-1 2\n";
+
+        assertEquals(expectedResult, graphLibrary.DFS(graph, new Vertex(1)));
+    }
+
+    @Test
+    public void BFSShouldWorkWithUnconnectedGraph() throws FileNotFoundException, GraphLibraryException {
+        Graph<Edge> graph = graphLibrary.readGraph(GRAPH_MORE_THAN_ONE_COMPONENT);
+
+        String expectedResult = "1-0 -\n" +
+                "2-0 -\n" +
+                "3-1 2\n" +
+                "4-1 2\n";
+
+        assertEquals(expectedResult, graphLibrary.BFS(graph, new Vertex(1)));
     }
 
     @Test
