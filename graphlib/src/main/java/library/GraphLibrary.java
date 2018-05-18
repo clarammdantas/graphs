@@ -284,7 +284,7 @@ public class GraphLibrary {
     	
     	String pathStr = Integer.toString(source.getNumber());
     	while(!path.empty()) {
-    		pathStr = " " + Integer.toString(path.pop().getNumber());
+    		pathStr += " " + Integer.toString(path.pop().getNumber());
     	}
     	
     	return pathStr;
@@ -305,7 +305,7 @@ public class GraphLibrary {
      * @return The shortest path between the source vertex and the target vertex
      * @throws GraphLibraryException
      */
-	public static String shortestPath(Graph<Edge> g, Vertex source, Vertex target) throws GraphLibraryException {
+	public static <T extends Edge> String shortestPath(Graph<T> g, Vertex source, Vertex target) throws GraphLibraryException {
     	Graph<WeightedEdge> newGraph = new Graph<WeightedEdge>(g.getNumberOfVertices());
     	
     	for(Edge edge : g.getEdges()) {
