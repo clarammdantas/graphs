@@ -3,7 +3,9 @@ package model;
 import exception.GraphLibraryException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Graph <T extends Edge> {
     int numberOfVertices;
@@ -18,8 +20,35 @@ public class Graph <T extends Edge> {
         this.edges = new ArrayList<T>();
     }
 
+    public List<Vertex> getNeighbours(Vertex vertex) {
+        List<Vertex> neighbours = new ArrayList();
+        for (T edge : edges) {
+            if (edge.getEndpointA().equals(vertex)) {
+                neighbours.add(edge.getEndpointB());
+            } else if (edge.getEndpointB().equals(vertex)) {
+                neighbours.add(edge.getEndpointA());
+            }
+        }
+
+        return neighbours;
+    }
+
     public int getNumberOfVertices() {
         return numberOfVertices;
+    }
+
+    public Set<Vertex> getVertices() {
+        Set<Vertex> vertices = new HashSet();
+        for (T edge : edges) {
+            vertices.add(edge.getEndpointA());
+            vertices.add(edge.getEndpointB());
+        }
+
+        return vertices;
+    }
+
+    public int getNumberOfEdges() {
+        return edges.size();
     }
 
     public void setNumberOfVertices(int numberOfVertices) {
@@ -71,20 +100,27 @@ public class Graph <T extends Edge> {
     private String ALWeightedRepresentation() {
         String representatiton = "";
         int numberOfVertices = getNumberOfVertices();
-        double[][] matrix = createWheightedAdjacencyMatrix();
-        for (int column = 0; column < numberOfVertices ; column++) {
-            String string_row = column +1 + " -";
-            for (int row = 0; row < numberOfVertices; row++) {
-                if (matrix[row][column] != 0) {
-                    string_row += " " + (row + 1) + "(" + matrix[row][column] + ")";
+        for (int vertexA = 0; vertexA < numberOfVertices ; vertexA++) {
+            String string_row = (vertexA +1) + " -";
+                for (WeightedEdge edge: (List<WeightedEdge>) getEdges()) {
+                    if (edge.getEndpointA().getNumber() == vertexA || edge.getEndpointB().getNumber() == vertexA) {
+                        int vertex = getOpositeVertex(edge, vertexA);
+                        string_row += " " + vertex + "(" + edge.getWeight() + ")";
+                    }
                 }
-
-            } 
+                
             string_row+= LS;
             representatiton+= string_row;
         }
         return representatiton;
-	}
+    }
+    
+    private int getOpositeVertex(Edge edge,int vertex) {
+        if (vertex == edge.getEndpointA().getNumber()) {
+            return edge.getEndpointB().getNumber();
+        }
+        return edge.getEndpointA().getNumber();
+    }
 
 	private String AMWeightedRepresentation() {
         String representatiton = "";
