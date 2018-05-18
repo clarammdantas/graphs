@@ -150,6 +150,20 @@ public class GraphLibrary {
     }
 
 
+
+    /**
+     * Returns the string with the representation of the graph in the choosen format
+     * @param graph graph
+     * @param type The type of the graph representation(Adjacency List(AL) or Adjacenct Matrix(AM))
+     * @return String Representação do gráfico no tipo escolhido
+     */
+    
+    public static String graphRepresentation(Graph graph, String type) {
+        return graph.representation(type);
+    }
+    
+
+    
     /**
      * Does a BFS on a graph g starting at vertex v. The graph can have more than one component.
      * @param g graph
@@ -184,7 +198,7 @@ public class GraphLibrary {
      *             level and the second value indicates the parent of that vertex.
      * @param visited Map that stores the vertices already visited.
      */
-    public static void BFSAux(Graph<Edge> g, Vertex v,
+    private static void BFSAux(Graph<Edge> g, Vertex v,
                                 Object[][] tree, Map<Integer, Boolean> visited) {
         int LEVEL = 0;
 
