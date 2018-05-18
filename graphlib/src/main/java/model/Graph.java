@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Graph <T extends Edge> {
     int numberOfVertices;
@@ -48,7 +49,7 @@ public class Graph <T extends Edge> {
      * @return A set with all vertices in the graph.
      */
     public Set<Vertex> getVertices() {
-        Set<Vertex> vertices = new HashSet();
+        Set<Vertex> vertices = new TreeSet();
         for (T edge : edges) {
             vertices.add(edge.getEndpointA());
             vertices.add(edge.getEndpointB());
