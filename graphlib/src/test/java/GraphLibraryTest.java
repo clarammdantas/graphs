@@ -1,10 +1,12 @@
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
+import enumeration.Representation;
 import exception.GraphLibraryException;
 import library.GraphLibrary;
 import model.Edge;
@@ -12,9 +14,10 @@ import model.Graph;
 import model.Vertex;
 import model.WeightedEdge;
 
+import org.junit.Assert;
+import org.junit.Before;
 import static org.junit.Assert.*;
 
-import java.io.File;
 
 
 public class GraphLibraryTest {
@@ -31,12 +34,12 @@ public class GraphLibraryTest {
 
     @Before
     public void setup() {
-        SIMPLE_GRAPH_PATH = new File("src/main/resources/simple-graph.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH1 = new File("src/main/resources/weighted-graph-1.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH2 = new File("src/main/resources/weighted-graph-2.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH3 = new File("src/main/resources/weighted-graph-3.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH4 = new File("src/main/resources/weighted-graph-4.txt").getAbsolutePath();
-        GRAPH_MORE_THAN_ONE_COMPONENT = new File("src/main/resources/graph-with-more-than-one-component.txt").getAbsolutePath();
+        SIMPLE_GRAPH_PATH = new File("graphlib/src/main/resources/simple-graph.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH1 = new File("graphlib/src/main/resources/weighted-graph-1.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH2 = new File("graphlib/src/main/resources/weighted-graph-2.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH3 = new File("graphlib/src/main/resources/weighted-graph-3.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH4 = new File("graphlib/src/main/resources/weighted-graph-4.txt").getAbsolutePath();
+        GRAPH_MORE_THAN_ONE_COMPONENT = new File("graphlib/src/main/resources/graph-with-more-than-one-component.txt").getAbsolutePath();
 
         V = new Vertex[TEST_SIZE + 1];
         for(int i = 1; i <= TEST_SIZE; i++) {
@@ -293,6 +296,53 @@ public class GraphLibraryTest {
     	} catch(Exception e) {
     		assertEquals(e.getMessage(), "Vertex is not reachable");
     	}
+    }
+
+    @Test
+    public void representationTest() throws FileNotFoundException, GraphLibraryException {
+        Graph<Edge> graph;
+        String representationAM;
+        String representationAL;
+        String AMType = Representation.ADJACENCY_MATRIX.getType();
+        String ALType = Representation.ADJACENCY_LIST.getType();
+    	
+        graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH);
+        representationAM = "  1 2 3 4 5\n" +
+                           "1 0 1 0 0 1\n" + 
+                           "2 1 0 0 0 1\n" +
+                           "3 0 0 0 0 1\n" +
+                           "4 0 0 0 0 1\n" +
+                           "5 1 1 1 1 0\n";
+        assertEquals(representationAM, GraphLibrary.graphRepresentation(graph, AMType));
+        representationAL = "1 - 2 5\n" +
+                           "2 - 1 5\n" +
+                           "3 - 5\n" +
+                           "4 - 5\n" +
+                           "5 - 1 2 3 4\n";
+        assertEquals(representationAL, GraphLibrary.graphRepresentation(graph,ALType));
+    }
+    @Test
+    public void wheightedRepresentationTest() throws FileNotFoundException, GraphLibraryException { 
+        Graph<WeightedEdge> graph;
+        String representationAM;
+        String representationAL;
+        String AMType = Representation.ADJACENCY_MATRIX.getType();
+        String ALType = Representation.ADJACENCY_LIST.getType();
+
+        graph = GraphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH1);
+        representationAM = "  1 2 3 4 5\n" +
+                           "1 0.0 0.1 0.0 0.0 0.5\n" + 
+                           "2 0.1 0.0 0.0 0.0 0.3\n" +
+                           "3 0.0 0.0 0.0 0.0 0.2\n" +
+                           "4 0.0 0.0 0.0 0.0 0.5\n" +
+                           "5 0.5 0.3 0.2 0.5 0.0\n";
+        assertEquals(representationAM, GraphLibrary.graphRepresentation(graph, AMType));
+        representationAL = "1 - 2(0.1) 5(0.5)\n" +
+                           "2 - 1(0.1) 5(0.3)\n" +
+                           "3 - 5(0.2)\n" +
+                           "4 - 5(0.5)\n" +
+                           "5 - 2(0.3) 3(0.2) 4(0.5) 1(0.5)\n";
+        assertEquals(representationAL, GraphLibrary.graphRepresentation(graph,ALType));
     }
 }
 
