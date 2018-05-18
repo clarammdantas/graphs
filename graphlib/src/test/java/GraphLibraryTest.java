@@ -1,12 +1,8 @@
-
-
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
-
-import javax.print.event.PrintJobAttributeListener;
 
 import org.junit.Test;
 
@@ -18,18 +14,8 @@ import model.Graph;
 import model.Vertex;
 import model.WeightedEdge;
 
-
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-
 
 public class GraphLibraryTest {
 	private static final int TEST_SIZE = 10;
