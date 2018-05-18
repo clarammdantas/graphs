@@ -306,6 +306,19 @@ public class GraphLibrary {
 
         return toStringTree;
     }
+    
+    public static <T extends Edge> int numberOfConnectedComponents(Graph<T> g) {
+    	DisjointSet ds = new DisjointSet();
+    	int components = g.getNumberOfVertices();
+    	
+    	for(T edge : g.getEdges()) {
+    		if(ds.mergeSets(edge.getEndpointA().getNumber(), edge.getEndpointB().getNumber())) {
+    			components--;
+    		}
+    	}
+
+    	return components;
+    }
 
     /**
      * Gives the minimum spanning tree of a given graph.
