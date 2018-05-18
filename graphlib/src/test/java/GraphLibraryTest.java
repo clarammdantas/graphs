@@ -21,6 +21,7 @@ public class GraphLibraryTest {
 	private static final int TEST_SIZE = 10;
 	
     private String SIMPLE_GRAPH_PATH;
+    private String SIMPLE_GRAPH_PATH2;
     private String WEIGHTED_GRAPH_PATH1;
     private String WEIGHTED_GRAPH_PATH2;
     private String WEIGHTED_GRAPH_PATH3;
@@ -32,6 +33,7 @@ public class GraphLibraryTest {
     @Before
     public void setup() {
         SIMPLE_GRAPH_PATH = new File("src/main/resources/simple-graph.txt").getAbsolutePath();
+        SIMPLE_GRAPH_PATH2 = new File("src/main/resources/simple-graph-2.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH1 = new File("src/main/resources/weighted-graph-1.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH2 = new File("src/main/resources/weighted-graph-2.txt").getAbsolutePath();
         WEIGHTED_GRAPH_PATH3 = new File("src/main/resources/weighted-graph-3.txt").getAbsolutePath();
@@ -85,6 +87,9 @@ public class GraphLibraryTest {
 
         String expectedResult2 = "1-1 5\n2-1 5\n3-1 5\n4-1 5\n5-0 -\n";
         assertEquals(expectedResult2, GraphLibrary.BFS(graph, new Vertex(5)));
+        
+        graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+        assertEquals("1-0 -\n", GraphLibrary.BFS(graph, new Vertex(1)));
     }
 
     @Test
@@ -104,6 +109,9 @@ public class GraphLibraryTest {
                 "4-3 5\n" +
                 "5-2 1\n";
         assertEquals(expectedResult2, GraphLibrary.DFS(graph, new Vertex(2)));
+        
+        graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+        assertEquals("1-0 -\n", GraphLibrary.BFS(graph, new Vertex(1)));
     }
 
     @Test
@@ -140,7 +148,7 @@ public class GraphLibraryTest {
     
 
 	@Test
-	public void getVertexNumber() throws GraphLibraryException {
+	public void getVertexNumber() throws GraphLibraryException, FileNotFoundException {
 		Graph<Edge> graphOne = buildGraph();
 		int expectedNumberVertex;
 		int numberAddedVertex;
@@ -149,10 +157,13 @@ public class GraphLibraryTest {
 		numberAddedVertex = 5;
 		
 		Assert.assertEquals(expectedNumberVertex, numberAddedVertex);
+
+		graphOne = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+		Assert.assertEquals(GraphLibrary.getVertexNumber(graphOne), 1);
 	}
 	
 	@Test
-	public void testGetEdgeNumber() throws GraphLibraryException {
+	public void testGetEdgeNumber() throws GraphLibraryException, FileNotFoundException {
 		Graph<Edge> graphOne = buildGraph();
 		int expectedNumberEdges;
 		int numberAddedEdges;
@@ -161,10 +172,13 @@ public class GraphLibraryTest {
 		numberAddedEdges = 4;
 		
 		Assert.assertEquals(expectedNumberEdges, numberAddedEdges);
+		
+		graphOne = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+		Assert.assertEquals(GraphLibrary.getEdgeNumber(graphOne), 0);
 	}
 	
 	@Test
-	public void testGetMeanEdge() throws GraphLibraryException {
+	public void testGetMeanEdge() throws GraphLibraryException, FileNotFoundException {
 		Graph<Edge> graphOne = buildGraph();
 		float expectedMeanEdge;
 		float numberMeanEdge;
@@ -173,10 +187,13 @@ public class GraphLibraryTest {
 		expectedMeanEdge = GraphLibrary.getMeanEdge(graphOne);
 		numberMeanEdge =  1.6f;
 		Assert.assertEquals(expectedMeanEdge, numberMeanEdge, delta);
+		
+		graphOne = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+		Assert.assertEquals(GraphLibrary.getMeanEdge(graphOne), 0, delta);
 	}
 	
 	 @Test
-	 public void testConnected() throws GraphLibraryException {
+	 public void testConnected() throws GraphLibraryException, FileNotFoundException {
 		 Graph<Edge> graph = buildGraph();
 	     Assert.assertTrue(GraphLibrary.connected(graph)); 
 	     
@@ -190,6 +207,9 @@ public class GraphLibraryTest {
 	     graph.addEdge(edge5);
 	     	   
 	     Assert.assertFalse(GraphLibrary.connected(graph));
+	     
+	     graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+	     Assert.assertTrue(GraphLibrary.connected(graph)); 
 	}
 
     @Test
@@ -264,7 +284,7 @@ public class GraphLibraryTest {
     }
     
     @Test
-    public void ShortestPathUnWeighted() throws FileNotFoundException, GraphLibraryException {
+    public void ShortestPathUnWeightedTest() throws FileNotFoundException, GraphLibraryException {
     	Graph<Edge> graph;
     	String path;
     	
@@ -293,6 +313,28 @@ public class GraphLibraryTest {
     	} catch(Exception e) {
     		assertEquals(e.getMessage(), "Vertex is not reachable");
     	}
+    	
+    	graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+    	path = GraphLibrary.shortestPath(graph, V[1], V[1]);
+    	assertEquals(path, "1");
+    }
+    
+    @Test
+    public void NumberOfConnectedComponentsTest() throws FileNotFoundException, GraphLibraryException {
+    	Graph<Edge> graph;
+    	Graph<WeightedEdge> graphWeighted;
+    	
+    	graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH);
+    	assertEquals(GraphLibrary.numberOfConnectedComponents(graph), 1);
+    	
+    	graph = GraphLibrary.readGraph(SIMPLE_GRAPH_PATH2);
+    	assertEquals(GraphLibrary.numberOfConnectedComponents(graph), 1);
+    	
+    	graph = GraphLibrary.readGraph(GRAPH_MORE_THAN_ONE_COMPONENT);
+    	assertEquals(GraphLibrary.numberOfConnectedComponents(graph), 2);
+    	
+    	graphWeighted = GraphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH4);
+    	assertEquals(GraphLibrary.numberOfConnectedComponents(graphWeighted), 2);
     }
 }
 
