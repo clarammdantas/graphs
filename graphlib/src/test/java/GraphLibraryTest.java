@@ -33,8 +33,8 @@ public class GraphLibraryTest {
 
     @Before
     public void setup() {
-        SIMPLE_GRAPH_PATH = new File("src/main/resources/simple-graph.txt").getAbsolutePath();
-        WEIGHTED_GRAPH_PATH = new File("src/main/resources/weighted-graph.txt").getAbsolutePath();
+        SIMPLE_GRAPH_PATH = new File("graphlib/src/main/resources/simple-graph.txt").getAbsolutePath();
+        WEIGHTED_GRAPH_PATH = new File("graphlib/src/main/resources/weighted-graph.txt").getAbsolutePath();
 
         graphLibrary = new GraphLibrary();
     }
@@ -66,12 +66,5 @@ public class GraphLibraryTest {
         assertEquals(5, edges.size());
     }
 
-    @Test
-    public void checkPrint() throws FileNotFoundException, GraphLibraryException {
-        GraphLibrary graphLibrary = new GraphLibrary();
-        Graph<WeightedEdge> graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH);
-        assertEquals("a", graphLibrary.graphRepresentation(graph, "A"));
-        System.out.println(graphLibrary.graphRepresentation(graph, "AM"));
-        System.out.println(graphLibrary.graphRepresentation(graph, "AL"));
-    }
+
 }

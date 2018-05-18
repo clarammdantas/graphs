@@ -100,8 +100,8 @@ public class Graph <T extends Edge> {
     private String ALWeightedRepresentation() {
         String representatiton = "";
         int numberOfVertices = getNumberOfVertices();
-        for (int vertexA = 0; vertexA < numberOfVertices ; vertexA++) {
-            String string_row = (vertexA +1) + " -";
+        for (int vertexA = 1; vertexA <= numberOfVertices ; vertexA++) {
+            String string_row = vertexA + " -";
                 for (WeightedEdge edge: (List<WeightedEdge>) getEdges()) {
                     if (edge.getEndpointA().getNumber() == vertexA || edge.getEndpointB().getNumber() == vertexA) {
                         int vertex = getOpositeVertex(edge, vertexA);
