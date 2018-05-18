@@ -52,15 +52,14 @@ public class GraphLibraryTest {
         Graph<Edge> graph = graphLibrary.readGraph(SIMPLE_GRAPH_PATH);
 
         String expectedResult = "1-0 -\n2-1 1\n3-3 5\n4-3 5\n5-2 2\n";
-        assertEquals(expectedResult, graphLibrary.DFS(graph, new Vertex(1)));
+        assertEquals(expectedResult, GraphLibrary.DFS(graph, new Vertex(1)));
 
         String expectedResult2 = "1-1 2\n2-0 -\n3-3 5\n4-3 5\n5-2 1\n";
-        assertEquals(expectedResult2, graphLibrary.DFS(graph, new Vertex(2)));
+        assertEquals(expectedResult2, GraphLibrary.DFS(graph, new Vertex(2)));
     }
 
     @Test
     public void readWeightedGraphShouldWorkProperly() throws FileNotFoundException, GraphLibraryException {
-        GraphLibrary graphLibrary = new GraphLibrary();
         Graph<WeightedEdge> graph = graphLibrary.readWeightedGraph(WEIGHTED_GRAPH_PATH);
         List<WeightedEdge> edges = graph.getEdges();
 
